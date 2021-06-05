@@ -1,0 +1,31 @@
+float distance(float x, float y, float required , float* xi , float* yi)
+{
+	float d;
+	float c;
+	if (required > d)
+	{
+	if ( z == 1 )
+	{
+			*xi = x;
+			*yi = y;
+			c = sqrt((x - xi) ^ 2 + (y - yi) ^ 2)
+			d = c + d;
+	}
+	else
+	{
+			c = sqrt((x - xi) ^ 2 + (y - yi) ^ 2)
+			d = c + d;
+			*xi = x;
+			*yi = y;
+	}
+	}
+	*z += 1;
+	return d;
+}
+
+void final_number (int total, int* hundreds , int* tens , int* units)
+{
+	*hundreds = total / 100;
+	*tens = (total - (100 * hundreds)) / 10;
+	*units = total % 10;
+} //dividing the total ditance into 3 digit numbers to be displayed on 3-digit 7 segment
