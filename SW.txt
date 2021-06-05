@@ -1,0 +1,23 @@
+int main ()
+	{
+		init();
+		while(1)
+		{
+		if((GPIO_PORTF_DATA_R&0x11) ==0x10) //Sw_2 is on and Sw_1 is off
+		{
+		GPIO_PORTF_DATA_R = Red;
+		}
+		else if ((GPIO_PORTF_DATA_R&0x11) ==0x01) //Sw_1 is on and Sw_2 is off
+		{
+		GPIO_PORTF_DATA_R = Blue;
+		}
+		else if ((GPIO_PORTF_DATA_R&0x11) ==0x00) //two switches are on
+		{
+		GPIO_PORTF_DATA_R = Green;
+		}
+		else
+		{
+		GPIO_PORTF_DATA_R = 0;
+		}
+		}
+	}
