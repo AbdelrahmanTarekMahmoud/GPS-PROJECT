@@ -1,0 +1,22 @@
+int main(){
+	init_Lcd(); //calling the initialization function
+	while(1)
+	{
+			 Lcd_command(0x01); //clearing the lcd
+			 Lcd_command(0x80); //Setting Display Buffer RAM address
+			 delay(50);
+			 Lcd_data('H');
+			 delay(50);
+			 Lcd_data('e');
+			 delay(200);
+			 Lcd_data('l');
+			 delay(200);
+			 Lcd_data('l');
+			 delay(200);
+			 Lcd_data('o');
+			 delay(200);
+			 Lcd_data('!');
+			 delay(200);
+			 Lcd_data('!');
+			 delay(200);
+	}
