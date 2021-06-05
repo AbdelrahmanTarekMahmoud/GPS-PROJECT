@@ -1,0 +1,26 @@
+void delay(int x)
+{
+	int i=0,j=0;
+	for(i;i<x;i++)
+	{
+	for(j;j<x;j++)
+	{
+	}
+	}
+} //two empty loops to delay the code
+
+void Lcd_command(char command){
+  GPIO_PORTA_DATA_R = 0x00;
+  GPIO_PORTB_DATA_R = command;
+  GPIO_PORTA_DATA_R |= 0x80;
+  delay(200);
+  GPIO_PORTA_DATA_R = 0x00;
+}
+
+void Lcd_data(char data){
+  GPIO_PORTA_DATA_R = 0x20;
+  GPIO_PORTB_DATA_R = data;
+  GPIO_PORTA_DATA_R |= 0x80;
+  delay(200);
+  GPIO_PORTA_DATA_R = 0x00;
+}
