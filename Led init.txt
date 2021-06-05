@@ -1,0 +1,20 @@
+#include "stdint.h"
+#include "C:/Users/pc/Desktop/Project/tm4c123gh6pm.h"
+#define Red 0x02
+#define Blue 0x04
+#define Green 0x08
+void SystemInit(){}
+void init()
+{
+	uint32_t delay; 
+	SYSCTL_RCGCGPIO_R |= 0x20; //To enable PORT_F
+	delay = 1;  //dumy var
+	GPIO_PORTF_LOCK_R  = 0x4C4F434B; //To unlock PORT_F
+	GPIO_PORTF_CR_R    = 0x1F; //To access the pins which we deal with
+	GPIO_PORTF_AFSEL_R = 0;
+	GPIO_PORTF_PCTL_R  = 0;
+	GPIO_PORTF_AMSEL_R = 0;
+	GPIO_PORTF_DIR_R   = 0x0E; //To get output(leds)
+	GPIO_PORTF_DEN_R   = 0x1F; //To work with degital inputs
+	GPIO_PORTF_PUR_R   = 0x11; //Because we deal with switches
+}
