@@ -1,0 +1,78 @@
+#include "TM4C123.h"
+#define LCD GPIOB
+#define RS 0x20
+#define RW 0x40
+#define EN 0x80
+#define HIGH 1
+#define LOW 0
+#define clear_display     0x01
+#define returnHome        0x02
+#define moveCursorRight   0x06
+#define moveCursorLeft    0x08
+#define shiftDisplayRight 0x1C
+#define shiftDisplayLeft  0x18
+#define cursorBlink       0x0F
+#define cursorOff         0x0C
+#define cursorOn          0x0E
+#define Function_set_4bit 0x28
+#define Function_set_8bit 0x38
+#define Entry_mode        0x06
+#define Function_8_bit    0x32
+#define Set5x7FontSize    0x20
+#define FirstRow          0x80
+void LCD_Write_Nibble(unsigned char data, unsigned char control)
+{
+    data &= 0xF0;
+    control &= 0x0F;
+    LCD->DATA = data | control; 
+    LCD->DATA = data | control | EN;
+    delay_us(0);
+    LCD->DATA = data;
+    LCD->DATA = 0;
+}
+void LCD_Cmd(unsigned char command)
+{
+    LCD_Write_Nibble(command & 0xF0, 0);
+    LCD_Write_Nibble(command << 4, 0);
+    
+    if (command < 4)
+        delay_ms(2);
+    else
+        delay_us(40);
+}
+void LCD_init(void)
+{
+ SYSCTL->RCGCGPIO |=(1<<1);
+ LCD->DIR |=0xFF;
+ LCD->DEN |=0xFF;
+ LCD_Cmd(Set5x7FontSize);
+ LCD_Cmd(Function_set_4bit);
+ LCD_Cmd(moveCursorRight);
+ LCD_Cmd(clear_display);
+ LCD_Cmd(cursorBlink);
+}
+
+void LCD_Write_Char(unsigned char data)
+{
+    LCD_Write_Nibble(data & 0xF0, RS);    /* Write upper nibble to LCD and RS = 1 to write data */
+    LCD_Write_Nibble(data << 4, RS);      /* Write lower nibble to LCD and RS = 1 to write data */
+    delay_us(40);
+}
+
+void LCD_String (char *str)	/* Send string to LCD function */
+{
+	int i;
+	for(i=0;str[i]!=0;i++)  /* Send each char of string till the NULL */
+	{
+		LCD_Write_Char(str[i]);  /* Call LCD data write */
+	}
+}
+int main()
+{
+ LCD_init();
+ LCD_Cmd(clear_display);
+ LCD_Cmd(FirstRow);
+ delay_ms(500);
+ LCD_Write_Char('A');
+ delay_ms(500); 
+}
