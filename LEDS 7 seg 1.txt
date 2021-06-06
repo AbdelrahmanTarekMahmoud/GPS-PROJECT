@@ -1,0 +1,56 @@
+#include <stdbool.h>
+#include <stdint.h>
+#include "inc/hw_types.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+#define Red 0x02
+#define Blue 0x04
+#define Green 0x08
+#include "C:/Keil/EE319Kware/inc/tm4c123gh6pm.h"
+
+void SystemInit() {}
+
+void delay(int x)
+{
+    int i = 0;
+    int j = 0;
+    for (i; i < x; i++)
+    {
+            for (j; j < x; j++)
+            {
+
+            }
+
+    }
+}
+
+void seven_segment ( int hundreds , int tens , int units)
+{
+    while(1)
+    {
+        if(hundreds >= 1)
+        {
+        GPIO_PORTF_DATA_R = Red;
+        }
+        if((GPIO_PORTF_DATA_R&0x11) ==0x10) //Sw_2 is on and Sw_1 is off
+        {
+        GPIO_PORTF_DATA_R = Red;
+        }
+        else if ((GPIO_PORTF_DATA_R&0x11) ==0x01) //Sw_1 is on and Sw_2 is off
+        {
+        GPIO_PORTF_DATA_R = Blue;
+        }
+        else if ((GPIO_PORTF_DATA_R&0x11) ==0x00) //two switches are on
+        {
+        GPIO_PORTF_DATA_R = Green;
+        }
+        else
+        {
+        GPIO_PORTF_DATA_R = 0;
+        }
+        GPIO_PORTA_DATA_R &= 0x7F;
+        GPIO_PORTA_DATA_R |= 0x60;
+        switch (hundreds)
+        {
+   
