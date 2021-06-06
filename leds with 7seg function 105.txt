@@ -1,0 +1,104 @@
+void seven_segment ( int hundreds , int tens , int units)
+{
+    while(1)
+    {
+        if(hundreds = 1)
+        {
+        GPIO_PORTF_DATA_R = Red;
+        }
+        if((GPIO_PORTF_DATA_R&0x11) ==0x10) Sw_2 is on and Sw_1 is off
+        {
+        GPIO_PORTF_DATA_R = Red;
+        }
+        else if ((GPIO_PORTF_DATA_R&0x11) ==0x01) Sw_1 is on and Sw_2 is off
+        {
+        GPIO_PORTF_DATA_R = Blue;
+        }
+        else if ((GPIO_PORTF_DATA_R&0x11) ==0x00) two switches are on
+        {
+        GPIO_PORTF_DATA_R = Green;
+        }
+        else
+        {
+        GPIO_PORTF_DATA_R = 0;
+        }
+        GPIO_PORTA_DATA_R &= 0x7F;
+        GPIO_PORTA_DATA_R = 0x60;
+        switch (hundreds)
+        {
+                case 0  GPIO_PORTB_DATA_R = 0x7E;
+                break;
+                case 1  GPIO_PORTB_DATA_R = 0x30;
+                break;
+                case 2  GPIO_PORTB_DATA_R = 0x6D;
+                break;
+                case 3  GPIO_PORTB_DATA_R = 0x79;
+                break;
+                case 4  GPIO_PORTB_DATA_R = 0x33;
+                break;
+                case 5  GPIO_PORTB_DATA_R = 0x5B;
+                break;
+                case 6  GPIO_PORTB_DATA_R = 0x5F;
+                break;
+                case 7  GPIO_PORTB_DATA_R = 0x70;
+                break;
+                case 8  GPIO_PORTB_DATA_R = 0x7F;
+                break;
+                case 9  GPIO_PORTB_DATA_R = 0x73;
+                break;
+        }
+        delay(40);
+        GPIO_PORTA_DATA_R &= 0xBF;
+        GPIO_PORTA_DATA_R = 0xA0;
+        switch (tens)
+        {
+                case 0  GPIO_PORTB_DATA_R = 0x7E;
+                break;
+                case 1  GPIO_PORTB_DATA_R = 0x30;
+                break;
+                case 2  GPIO_PORTB_DATA_R = 0x6D;
+                break;
+                case 3  GPIO_PORTB_DATA_R = 0x79;
+                break;
+                case 4  GPIO_PORTB_DATA_R = 0x33;
+                break;
+                case 5  GPIO_PORTB_DATA_R = 0x5B;
+                break;
+                case 6  GPIO_PORTB_DATA_R = 0x5F;
+                break;
+                case 7  GPIO_PORTB_DATA_R = 0x70;
+                break;
+                case 8  GPIO_PORTB_DATA_R = 0x7F;
+                break;
+                case 9  GPIO_PORTB_DATA_R = 0x73;
+                break;
+        }
+        delay(40);
+        GPIO_PORTA_DATA_R &= 0xDF;
+        GPIO_PORTA_DATA_R = 0xC0;
+        switch (units)
+        {
+                case 0  GPIO_PORTB_DATA_R = 0x7E;
+                break;
+                case 1  GPIO_PORTB_DATA_R = 0x30;
+                break;
+                case 2  GPIO_PORTB_DATA_R = 0x6D;
+                break;
+                case 3  GPIO_PORTB_DATA_R = 0x79;
+                break;
+                case 4  GPIO_PORTB_DATA_R = 0x33;
+                break;
+                case 5  GPIO_PORTB_DATA_R = 0x5B;
+                break;
+                case 6  GPIO_PORTB_DATA_R = 0x5F;
+                break;
+                case 7  GPIO_PORTB_DATA_R = 0x70;
+                break;
+                case 8  GPIO_PORTB_DATA_R = 0x7F;
+                break;
+                case 9  GPIO_PORTB_DATA_R = 0x73;
+                break;
+        }
+        delay(40);
+    }
+}
