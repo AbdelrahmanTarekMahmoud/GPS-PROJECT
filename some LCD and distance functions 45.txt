@@ -1,0 +1,45 @@
+#include "math.h"
+#include "stdint.h"
+#define UNLOCK_PORT 0x4C4F434B
+#define PI 3.14159265
+#define R 6371000
+
+void TARGET(){
+    if (Dis >= 100){
+    LED_Output(0x02);
+    }
+}
+
+double Deg_Rad(double deg){
+    return (deg * PI / 180);
+}// Converting from degrees to radian
+
+double Total_Distance(double long1, double long2, double lat1, double lat2){
+    double dlong = Deg_Rad(long2 - long1);
+    double dlat  = Deg_Rad(lat2 - lat1);
+    double phi1 = Deg_Rad(lat1);
+    double phi2 = Deg_Rad(lat2);
+    double a = pow(sin((0.5 * dlat)), 2) + cos(phi1) * cos(phi2) * pow(sin((0.5 * dlong)), 2);
+    double d = 2 * R * asin(sqrt(a));
+    Dis = Dis + d;
+    return Dis;
+}// Measuring the distance by longitude and latitude
+
+void LCD_DATA(unsigned char data)
+{
+    GPIO_PORTA_DATA_R=0x20;
+    GPIO_PORTB_DATA_R=data;
+    GPIO_PORTA_DATA_R|=0x80;
+    delay_micro(0);
+    GPIO_PORTA_DATA_R=0x00;
+}
+
+void LCD_COM(unsigned char com)
+{
+    GPIO_PORTA_DATA_R=0x00;
+    GPIO_PORTB_DATA_R=com;
+    GPIO_PORTA_DATA_R=0x80;
+    delay_micro(0);
+        GPIO_PORTA_DATA_R=0x00;
+    if(com <4) delay_milli(2); else delay_micro(37);
+}
