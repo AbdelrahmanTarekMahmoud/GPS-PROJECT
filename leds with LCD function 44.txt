@@ -1,0 +1,45 @@
+
+#define Red 0x02
+#define Blue 0x04
+#define Green 0x08
+
+int main(){
+	init_Leds();
+	init_Lcd();
+	while(1)
+	{
+		 Lcd_command(0x01);
+		 Lcd_command(0x80);
+		 delay(50);
+		 Lcd_data('A');
+		 delay(50);
+		 Lcd_data('B');
+		 delay(200);
+		 Lcd_data('C');
+		 delay(200);
+		 Lcd_data('D');
+		 delay(200);
+		 Lcd_data('E');
+		 delay(200);
+		 Lcd_data('F');
+		 delay(200);
+		 Lcd_data('G');
+		 delay(200);
+			if((GPIO_PORTF_DATA_R&0x11) ==0x10) //Sw_2 is on and Sw_1 is off
+			{
+			GPIO_PORTF_DATA_R = Red;
+			}
+			else if ((GPIO_PORTF_DATA_R&0x11) ==0x01) //Sw_1 is on and Sw_2 is off
+			{
+			GPIO_PORTF_DATA_R = Blue;
+			}
+			else if ((GPIO_PORTF_DATA_R&0x11) ==0x00) //two switches are on
+			{
+			GPIO_PORTF_DATA_R = Green;
+			}
+			else
+			{
+			GPIO_PORTF_DATA_R = 0;
+			}
+	}
+}
